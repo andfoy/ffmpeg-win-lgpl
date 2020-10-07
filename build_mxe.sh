@@ -17,7 +17,7 @@ make MXE_TARGETS="x86_64-w64-mingw32.shared" libiconv
 make MXE_TARGETS="x86_64-w64-mingw32.shared" yasm
 
 # NASM
-make MXE_TARGETS="x86_64-w64-mingw32.shared" yasm
+make MXE_TARGETS="x86_64-w64-mingw32.shared" nasm
 
 # OpenSSL
 make MXE_TARGETS="x86_64-w64-mingw32.shared" openssl

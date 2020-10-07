@@ -29,3 +29,7 @@ popd
 pushd mxe/usr/x86_64-w64-mingw32.shared/usr/local/lib/pkgconfig
 patch openh264.pc < /ffmpeg-build-src/openh264.pc.patch
 popd
+
+cp \
+mxe/usr/x86_64-w64-mingw32.shared/usr/local/lib/pkgconfig/openh264.pc \
+mxe/usr/x86_64-w64-mingw32.shared/lib/pkgconfig/

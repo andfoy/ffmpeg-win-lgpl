@@ -37,10 +37,10 @@ RUN yum install -y \
 # Update automake to 1.15
 RUN wget http://ftp.gnu.org/gnu/automake/automake-1.15.tar.gz
 RUN tar -xzvf automake-1.15.tar.gz
-RUN cd automake-1.15.tar.gz && ./configure && make
+RUN cd automake-1.15.tar.gz && ./configure && make && make install
 
 # Create MXE environment and install packages
 RUN bash build_mxe.sh
 
 # Compile and install OpenH264
-# RUN bash build_openh264.sh
+RUN bash build_openh264.sh

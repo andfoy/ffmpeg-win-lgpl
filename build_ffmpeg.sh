@@ -6,7 +6,7 @@ mkdir -p ffmpeg_output
 
 # Set MXE environment variables
 export PATH=$(pwd)/mxe/usr/bin:$(pwd)/mxe/usr/x86_64-pc-linux-gnu/bin:$PATH
-export PKG_CONFIG_PATH_x86_64_w64_mingw32_shared=$(pwd)/mxe/usr/local/lib/pkgconfig
+MXE_DIR = $(pwd)/mxe/usr/x86_64-w64-mingw32.shared
 
 # Download FFmpeg
 wget https://ffmpeg.org/releases/ffmpeg-$FFMPEG_VERSION.tar.gz
@@ -42,18 +42,22 @@ popd
 
 # Rearrange binary distribution
 pushd ffmpeg_output
-mv -r /usr/local/* .
+mv usr/local/* .
+rm -rf usr
 mv bin/*.lib lib/
 
 # Copy all dependent DLLs
 cd bin/
-for $f in *.{dll,exe}; do
-    for $d in $(peldd $f); do
+for f in *.{dll,exe}; do
+    for d in $(peldd $f); do
         echo "$f: $d"
-        if [[ -f "$(pwd)/$d"]]; then
-            echo "Library $d is part of FFmpeg"
+        if [[ -f "$(pwd)/$d" ]]; then
+            echo "Library $d is already part of FFmpeg"
         else
-
+            for l in $(find $MXE_DIR -name $d); do
+                echo "Library $d found at: $l"
+                cp $l .
+            done
         fi
     done
 done
